@@ -15,7 +15,7 @@ import pandas as pd
 
 
 # ----------------------------------------------------------------------
-def sort_argmin(array):
+def argminsort(array):
     """
     Performs sort using np.argmin() function.
 
@@ -26,14 +26,14 @@ def sort_argmin(array):
         pos_min = np.argmin(data[i: ])
         data[i], data[i + pos_min] = data[i + pos_min], data[i] # Swap
     
-
     return data
 
 
 def edusort(array):
     """
-    Do not laugh, I did this sorting algorithm in my APS Advanced Test
-    because I need to sort a list and do not remember any algorithm.
+    Lachen Sie nicht, ich habe diesen Sortieralgorithmus in meinem
+    APS Advanced Test durchgeführt. Weil ich eine Liste sortieren muss
+    und mich an keinen Algorithmus erinnere.
 
     """
     data = array[:]
@@ -50,18 +50,5 @@ def edusort(array):
                 data[i + 1] = first
                 unsort = True
 
-        print(data)
-        
-        _ = input()
-
-
     return data
-
-    
-
-        
-        
-
-
-
 
