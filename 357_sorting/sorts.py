@@ -29,3 +29,39 @@ def sort_argmin(array):
 
     return data
 
+
+def edusort(array):
+    """
+    Do not laugh, I did this sorting algorithm in my APS Advanced Test
+    because I need to sort a list and do not remember any algorithm.
+
+    """
+    data = array[:]
+    unsort = True
+    
+    while(unsort == True):       
+        unsort = False
+        for i in range(0, (len(data) - 1)):
+            first = data[i]
+            last = data[i + 1]
+
+            if(first > last):
+                data[i] = last
+                data[i + 1] = first
+                unsort = True
+
+        print(data)
+        
+        _ = input()
+
+
+    return data
+
+    
+
+        
+        
+
+
+
+
