@@ -1,4 +1,11 @@
+# Anconbe's Quartet [P204] ---------------------------------------------
+# A group of four distinct set of values shows that only look for some
+# metrics is not enough.
+#
+# https://en.wikipedia.org/wiki/Anscombe%27s_quartet
 
+
+# Libraries
 import numpy as np
 import pandas as pd
 
@@ -6,9 +13,10 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
 
-# Data
-# https://en.wikipedia.org/wiki/Anscombe%27s_quartet#
+# Setup/Config
 
+
+# Program
 data = [["I_x", "I_y", "II_x", "II_y", "III_x", "III_y", "IV_x", "IV_y"],
         [10.0, 8.04, 10.0, 9.14, 10.0, 7.46, 8.0, 6.58],
         [8.0, 6.95, 8.0, 8.14, 8.0, 6.77, 8.0, 5.76],
@@ -22,7 +30,7 @@ data = [["I_x", "I_y", "II_x", "II_y", "III_x", "III_y", "IV_x", "IV_y"],
         [7.0, 4.82, 7.0, 7.26, 7.0, 6.42, 8.0, 7.91],
         [5.0, 5.68, 5.0, 4.74, 5.0, 5.73, 8.0, 6.89]]
 
-DF = pd.DataFrame(data=data[1: ], columns=data[0])
+df = pd.DataFrame(data=data[1: ], columns=data[0])
 
 
 # Ploting
@@ -45,16 +53,16 @@ ax1 = plt.subplot(grd[0, 1], sharex=ax0, sharey=ax0)    # Second Plot
 ax2 = plt.subplot(grd[1, 0], sharex=ax1, sharey=ax1)    # Third Plot
 ax3 = plt.subplot(grd[1, 1], sharex=ax2, sharey=ax2)    # Fourth Plot
 
-ax0.scatter(DF["I_x"], DF["I_y"], color="darkblue", edgecolor="white", zorder=20)
+ax0.scatter(df["I_x"], df["I_y"], color="darkblue", edgecolor="white", zorder=20)
 ax0.plot([2,20], [4,13], color="darkred", linewidth=1, zorder=21)
 
-ax1.scatter(DF["II_x"], DF["II_y"], color="darkblue", edgecolor="white", zorder=22)
+ax1.scatter(df["II_x"], df["II_y"], color="darkblue", edgecolor="white", zorder=22)
 ax1.plot([2,20], [4,13], color="darkred", linewidth=1, zorder=23)
 
-ax2.scatter(DF["III_x"], DF["III_y"], color="darkblue", edgecolor="white", zorder=24)
+ax2.scatter(df["III_x"], df["III_y"], color="darkblue", edgecolor="white", zorder=24)
 ax2.plot([2,20], [4,13], color="darkred", linewidth=1, zorder=25)
 
-ax3.scatter(DF["IV_x"], DF["IV_y"], color="darkblue", edgecolor="white", zorder=26)
+ax3.scatter(df["IV_x"], df["IV_y"], color="darkblue", edgecolor="white", zorder=26)
 ax3.plot([2,20], [4,13], color="darkred", linewidth=1, zorder=27)
 
 ax0.set_xlim([2, 20])
@@ -76,5 +84,5 @@ ax3.set_xlabel("x4", fontsize=8)
 ax3.set_ylabel("y4", fontsize=8)
 ax3.grid(axis="both", color="lightgrey", linestyle="--", linewidth=0.5)
 
-plt.savefig(title, dpi=240)
+#plt.savefig(title, dpi=240)
 plt.show()
