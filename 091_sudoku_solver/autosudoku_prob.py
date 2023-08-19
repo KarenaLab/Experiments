@@ -188,6 +188,34 @@ def count_empty(board):
     return count
 
 
+def filled_sequence(board):
+    """
+    Returns a list with priorities to find (to be used at probability)
+    in a reverse mode.
+
+    """
+    numbers = [i for i in range(1, 10)]
+    counter = list()
+
+    # Get the number of filled items by number
+    for i in numbers:
+        count = count_number(board, i)
+        counter.append(count)
+
+    # Remove items with count = 9 (not need to be analized).
+    _counter = counter[:]
+    for i in _counter:
+        if(i == 9):
+            numbers.pop(i)
+            counter.pop(i)
+
+    # Sort the numbers by the reverse order of appearing items.
+    numbers = [i for _, i in sorted(zip(counter, numbers), reverse=True)]   
+
+
+    return numbers
+
+    
 def find_cell(row, col):
     """
     Returns the cell (0~8) by an address of **row** and **col**.
