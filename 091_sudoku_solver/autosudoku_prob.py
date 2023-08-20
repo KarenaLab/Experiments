@@ -1,6 +1,16 @@
 # Auto Sudoku [P091] ---------------------------------------------------
 # Solves Sudoku with use of restraints and probability, NO bactracking.
 
+# Versions
+# 01 - Ago 15th, 2023 - Starter
+# 02
+
+
+# Insights, improvements and bugfix
+# Add a debug move (more detailed than verbose)
+#
+
+
 # Libraries
 import os
 
