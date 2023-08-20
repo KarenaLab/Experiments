@@ -61,7 +61,7 @@ def read_board(filename):
     return board
 
 
-def print_board(board, title="Board", zero_print=" ", na_print="."):
+def print_board(board, title="Board", zero_print=" "):
     """
     Prints/shows the board in a better away :)
 
@@ -80,9 +80,6 @@ def print_board(board, title="Board", zero_print=" ", na_print="."):
             cell = str(board[i][j])
             if(cell == "0"):
                 cell = zero_print
-                
-            elif(cell == "NA"):
-                cell = na_print
 
             col = col + cell + " "
             j = j + 1
@@ -321,11 +318,135 @@ def solution_by_exclusion(board, verbose=True):
 
 
     return board_shadow, solutions
+
+
+def solution_by_problines(board, number, verbose=True):
+    """
+
+
+    """
+    board_shadow = board[:]
+    solutions = 0
+
+    # Find possible solutions
+    prob_board = probability_board(board_shadow, number)
+    board_shadow, solutions = apply_prob_board(board_shadow, prob_board, number, verbose=verbose)
+
+
+    return board_shadow, solutions
+    
+    
+def probability_board(board, number):
+    """
+    Creates a probability board considering the **board** and the
+    desired **number**.
+
+    """
+    prob_board = [[0 for col in range(0, 9)] for row in range(0, 9)]
+
+    for i in range(0, 9):
+        for j in range(0, 9):
+            pos = board[i][j]
+
+            if(pos == number):
+                prob_board[i][j] = 1
+                prob_board = _prob_row(prob_board, i, j)
+                prob_board = _prob_col(prob_board, i, j)
+                prob_board = _prob_cell(prob_board, i, j)
+                                
+            elif(pos > 0):
+                prob_board[i][j] = "."
+
+
+    return prob_board
+
+
+def apply_prob_board(board, prob_board, number, verbose=True):
+    """
+
+
+    """
+    solutions = 0
+    
+    for cell in range(0, 9):
+        i_offset = (cell // 3) * 3
+        j_offset = (cell % 3) * 3
+
+        # Find if there is a single empty value in the cell.
+        data = list() 
+        for i in range(i_offset, i_offset+3):
+            for j in range(j_offset, j_offset+3):
+                data.append(prob_board[i][j])
+
+        # if only one cell is empty, the probability is 100%
+        if(data.count(" ") == 1):
+            for i in range(i_offset, i_offset+3):
+                for j in range(j_offset, j_offset+3):
+                    if(prob_board[i][j] == " "):
+                        board[i][j] = number
+                        solutions = solutions + 1
+
+                        if(verbose == True):
+                            print(f" > Position[{i}][{j}]: {point[0]}")
+
+
+    return board, solutions
+
                         
-                
+def _prob_row(prob_board, row, col):
+    """
+    
+
+    """
+    line = [i for i in range(0, 9)]
+    line.remove(col)
+
+    for j in line:
+        prob_board[row][j] = "."
+
+
+    return prob_board
+
+
+def _prob_col(prob_board, row, col):
+    """
+
+
+    """
+    line = [i for i in range(0, 9)]
+    line.remove(row)
+
+    for i in line:
+        prob_board[i][col] = "."
+
+
+    return prob_board
+
+
+def _prob_cell(prob_board, row, col):
+    """
+
+
+    """
+    cell = find_cell(row, col)
+
+    i_offset = (cell // 3) * 3
+    j_offset = (cell % 3) * 3
+
+    for i in range(i_offset, i_offset+3):
+        for j in range(j_offset, j_offset+3):
+            prob_board[i][j] = "."
+
+    prob_board[row][col] = 1
+        
             
+    return prob_board
+
+
+           
 # Program --------------------------------------------------------------
-board_list = get_all_boards(extension=".txt")
+#board_list = get_all_boards(extension=".txt")
+board_list = ["sudoku_hard_01.txt"]
 
 for b in board_list:
     print(f" ****  Solving '{b}'  **** \n")    
@@ -333,6 +454,7 @@ for b in board_list:
     print_board(board, title="Board - Initial")
 
     turn = 0
+    # Step 1: Find solutions by exclusion (easy level)
     while(True):
         board, solutions = solution_by_exclusion(board, verbose=True)
         turn = turn + 1
@@ -341,5 +463,25 @@ for b in board_list:
             print_board(board, title=f"Board - Turn {turn}")
 
         else:
+            print(f" > Empty cells: {count_empty(board)}")
             break
+
+
+    # Step 2: Find solutions by probabilities lines (medium/hard)
+    while(True):
+        sequence = filled_sequence(board)
+
+        turn = turn + 1
+        solutions = 0
+        
+        for i in sequence:
+            board, sol = solution_by_problines(board, i, verbose=True)
+            solutions = solutions + sol
+        
+        if(solutions > 0):
+            print_board(board, title=f"Board - Turn {turn}")
+
+        else:
+            break
+            
 
