@@ -70,12 +70,14 @@ def print_board(board, title="Board", zero_print=" "):
     i = 0
     for i in range(0, 9):
         # Horizontal division for cells
-        if(i % 3 == 0): print(" " + ("-" * 25))
+        if(i % 3 == 0):
+            print(" " + ("-" * 25))
 
         j = 0
         col = " "
         for j in range(0, 9):
-            if(j % 3 == 0): col = col + "| "
+            if(j % 3 == 0):
+                col = col + "| "
 
             cell = str(board[i][j])
             if(cell == "0"):
