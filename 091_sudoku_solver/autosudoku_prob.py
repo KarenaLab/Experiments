@@ -210,6 +210,7 @@ def filled_sequence(board):
         count = count_number(board, i)
         counter.append(count)
 
+
     # Remove items with count = 9 (not need to be analized).
     for i in range(0, 9):
         if(counter[i] == 9):
@@ -218,6 +219,7 @@ def filled_sequence(board):
               
     counter = [i for i in counter if i != "."]
     numbers = [i for i in numbers if i != "."]
+
     
     # Sort the numbers by the reverse order of appearing items.
     numbers = [i for _, i in sorted(zip(counter, numbers), reverse=True)]   
