@@ -143,8 +143,7 @@ def get_cell(board, cell):
 
     """
     # Calculate the initial position (upper/left) of the cell 
-    i_offset = (cell // 3) * 3
-    j_offset = (cell % 3) * 3
+    i_offset, j_offset = _cell_offset(cell)
 
     data = list()
     for i in range(i_offset, i_offset+3):
@@ -212,12 +211,14 @@ def filled_sequence(board):
         counter.append(count)
 
     # Remove items with count = 9 (not need to be analized).
-    _counter = counter[:]
-    for i in _counter:
-        if(i == 9):
-            numbers.pop(i)
-            counter.pop(i)
-
+    for i in range(0, 9):
+        if(counter[i] == 9):
+            numbers[i] = "."
+            counter[i] = "."        
+              
+    counter = [i for i in counter if i != "."]
+    numbers = [i for i in numbers if i != "."]
+    
     # Sort the numbers by the reverse order of appearing items.
     numbers = [i for _, i in sorted(zip(counter, numbers), reverse=True)]   
 
@@ -312,31 +313,11 @@ def solution_by_exclusion(board, verbose=True):
                     solutions = solutions + 1
 
                     if(verbose == True):
-                        print(f" > Position[{i}][{j}]: {point[0]}")
-
-
-    if(verbose == True):
-        print(f" > Total of solutions found: {solutions} \n")
+                        print(f" > Position[{i}][{j}]: {point[0]} - Exclusion")
 
 
     return board_shadow, solutions
-
-
-def solution_by_problines(board, number, verbose=True):
-    """
-
-
-    """
-    board_shadow = board[:]
-    solutions = 0
-
-    # Find possible solutions
-    prob_board = probability_board(board_shadow, number)
-    board_shadow, solutions = apply_prob_board(board_shadow, prob_board, number, verbose=verbose)
-
-
-    return board_shadow, solutions
-    
+   
     
 def probability_board(board, number):
     """
@@ -363,36 +344,64 @@ def probability_board(board, number):
     return prob_board
 
 
-def apply_prob_board(board, prob_board, number, verbose=True):
+def solution_by_probabilities(board, sequence, verbose=True):
     """
 
 
     """
     solutions = 0
-    
-    for cell in range(0, 9):
-        i_offset = (cell // 3) * 3
-        j_offset = (cell % 3) * 3
+    board_shadow = board[:]
 
-        # Find if there is a single empty value in the cell.
-        data = list() 
-        for i in range(i_offset, i_offset+3):
-            for j in range(j_offset, j_offset+3):
-                data.append(prob_board[i][j])
+    for number in sequence:
+        prob_board = probability_board(board_shadow, number)
+        #print_board(prob_board, title=f"Prob Board {number}")
+        
+        for cell in range(0, 9):
+            prob = get_cell(prob_board, cell).count(0)
+            if(prob == 1):
+                i, j = find_value_in_cell(prob_board, cell, 0)
+                board_shadow[i][j] = number
+                solutions = solutions + 1
 
-        # if only one cell is empty, the probability is 100%
-        if(data.count(" ") == 1):
-            for i in range(i_offset, i_offset+3):
-                for j in range(j_offset, j_offset+3):
-                    if(prob_board[i][j] == " "):
-                        board[i][j] = number
-                        solutions = solutions + 1
+                if(verbose == True):
+                    print(f" > Position[{i}][{j}]: {number} - Prob Cell")
 
-                        if(verbose == True):
-                            print(f" > Position[{i}][{j}]: {point[0]}")
+        
+    return board_shadow, solutions
 
 
-    return board, solutions
+
+def find_value_in_cell(board, cell, value):
+    """
+    Find the position specific **value** in a **cell** of a
+    given **board**
+
+    Returns its position i (row) and j (col).
+
+    """
+    i_offset, j_offset = _cell_offset(cell)
+
+    for i in range(i_offset, i_offset+3):
+        for j in range(j_offset, j_offset+3):
+            if(board[i][j] == value):
+                pos_i = i
+                pos_j = j
+
+
+    return pos_i, pos_j
+
+
+def _cell_offset(cell):
+    """
+    Gets a specific cell (0~8) from board [3x3] and
+    returns the offset of its initial position (upper left).
+
+    """
+    i_offset = (cell // 3) * 3
+    j_offset = (cell % 3) * 3
+
+
+    return i_offset, j_offset  
 
                         
 def _prob_row(prob_board, row, col):
@@ -432,8 +441,7 @@ def _prob_cell(prob_board, row, col):
     """
     cell = find_cell(row, col)
 
-    i_offset = (cell // 3) * 3
-    j_offset = (cell % 3) * 3
+    i_offset, j_offset = _cell_offset(cell)
 
     for i in range(i_offset, i_offset+3):
         for j in range(j_offset, j_offset+3):
@@ -447,8 +455,8 @@ def _prob_cell(prob_board, row, col):
 
            
 # Program --------------------------------------------------------------
-#board_list = get_all_boards(extension=".txt")
-board_list = ["sudoku_hard_01.txt"]
+board_list = get_all_boards(extension=".txt")
+#board_list = ["sudoku_hard_01.txt"]
 
 for b in board_list:
     print(f" ****  Solving '{b}'  **** \n")    
@@ -456,10 +464,12 @@ for b in board_list:
     print_board(board, title="Board - Initial")
 
     turn = 0
-    # Step 1: Find solutions by exclusion (easy level)
+    
     while(True):
-        board, solutions = solution_by_exclusion(board, verbose=True)
         turn = turn + 1
+        
+        board, solutions = solution_by_exclusion(board, verbose=True)
+        board, solutions = solution_by_probabilities(board, filled_sequence(board), verbose=True)
         
         if(solutions > 0):
             print_board(board, title=f"Board - Turn {turn}")
@@ -468,22 +478,4 @@ for b in board_list:
             print(f" > Empty cells: {count_empty(board)}")
             break
 
-
-    # Step 2: Find solutions by probabilities lines (medium/hard)
-    while(True):
-        sequence = filled_sequence(board)
-
-        turn = turn + 1
-        solutions = 0
-        
-        for i in sequence:
-            board, sol = solution_by_problines(board, i, verbose=True)
-            solutions = solutions + sol
-        
-        if(solutions > 0):
-            print_board(board, title=f"Board - Turn {turn}")
-
-        else:
-            break
-            
 
