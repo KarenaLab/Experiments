@@ -458,6 +458,7 @@ def _prob_cell(prob_board, row, col):
            
 # Program --------------------------------------------------------------
 board_list = get_all_boards(extension=".txt")
+board_list = ["sudoku_medium_01.txt"]
 #board_list = ["sudoku_hard_01.txt"]
 
 for b in board_list:
