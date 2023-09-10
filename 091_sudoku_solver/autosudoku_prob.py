@@ -8,6 +8,7 @@
 
 # Insights, improvements and bugfix
 # Add a debug move (more detailed than verbose)
+# Change the initial matrix 0 for "." (need to change all algorithm seq)
 #
 
 
@@ -67,14 +68,14 @@ def print_board(board, title="Board", zero_print=" "):
     Prints/shows the board in a better away :)
 
     """
-    print(f" {title}")
-    i = 0
+    print(f"\n {title}")
+
     for i in range(0, 9):
         # Horizontal division for cells
         if(i % 3 == 0):
             print(" " + ("-" * 25))
 
-        j = 0
+        # Row with numbers and Vertical division for cells
         col = " "
         for j in range(0, 9):
             if(j % 3 == 0):
@@ -85,11 +86,9 @@ def print_board(board, title="Board", zero_print=" "):
                 cell = zero_print
 
             col = col + cell + " "
-            j = j + 1
 
         col = col + "| "
         print(col)
-        i = i + 1
 
     print(" " + ("-" * 25) + "\n")
 
@@ -248,12 +247,8 @@ def remove_zero(array):
     Remove zeros from the list.
 
     """
-    data = list()
+    data = [i for i in array if i != 0]
     
-    for i in range(0, len(array)):
-        if(array[i] != 0):
-            data.append(array[i])
-
 
     return data
 
@@ -292,8 +287,8 @@ def inverse(array):
 def solution_by_exclusion(board, verbose=True):
     """
     Performs one full turn of finding solution by exclusion (easy level)
-    Returns the filled board after the turn and the number of solutions
-    found.
+    Returns the filled **board** after the turn and the number of
+    **solutions** found.
 
     """
     board_shadow = board[:]
@@ -307,10 +302,12 @@ def solution_by_exclusion(board, verbose=True):
                 col = get_col(board, j)
                 cell = get_cell(board, find_cell(i, j))
 
+                # Get all numbers (exclusion) for the point
                 point = outer_join(row, col)
                 point = outer_join(point, cell)
                 point = inverse(point)
 
+                # IF the point is unique, it is the solution
                 if(len(point) == 1):
                     board_shadow[i][j] = point[0]
                     solutions = solutions + 1
@@ -334,12 +331,16 @@ def probability_board(board, number):
         for j in range(0, 9):
             pos = board[i][j]
 
+            # IF the position has a number, its position prob is one.
             if(pos == number):
                 prob_board[i][j] = 1
+
+                # Row, Col and Cell of position with probability zero.
                 prob_board = _prob_row(prob_board, i, j)
                 prob_board = _prob_col(prob_board, i, j)
                 prob_board = _prob_cell(prob_board, i, j)
-                                
+
+            # Positions already filled, probability is zero (too).                               
             elif(pos > 0):
                 prob_board[i][j] = "."
 
@@ -347,20 +348,26 @@ def probability_board(board, number):
     return prob_board
 
 
-def solution_by_probabilities(board, sequence, verbose=True):
+def solution_by_prob_cell(board, sequence=None, verbose=True):
     """
-
+    Calculates the probability of the cells.
 
     """
     solutions = 0
     board_shadow = board[:]
 
+    # Optimizing the probability of finding for solutions.
+    # Using the sequence from most used numbers to less used.
+    if(sequence == None):
+        sequence = priority_sequence(board_shadow)
+
     for number in sequence:
         prob_board = probability_board(board_shadow, number)
-        #print_board(prob_board, title=f"Prob Board {number}")
-        
+
+        # Looking for unique cell with probalility 
         for cell in range(0, 9):
             prob = get_cell(prob_board, cell).count(0)
+
             if(prob == 1):
                 i, j = find_value_in_cell(prob_board, cell, 0)
                 board_shadow[i][j] = number
@@ -375,9 +382,15 @@ def solution_by_probabilities(board, sequence, verbose=True):
 
 def solution_by_lines(board, verbose=True):
     """
-
+    Calculates the probability of the line (row and col).
 
     """
+    # Improvements for the algorithm:
+    # 1- Priorize line (row and col) with number of appearing.
+    # 2- Transform the col and row to a variable and use code once.
+    # 3- Pack some sequence into functions.
+    #
+    
     solutions = 0
     board_shadow = board[:]
     
@@ -524,6 +537,9 @@ def find_value_in_cell(board, cell, value):
                 pos_i = i
                 pos_j = j
 
+    # Could add a **break** after the finding of the position
+    #    but will be without just to test a bug with two positions
+
 
     return pos_i, pos_j
 
@@ -555,7 +571,7 @@ def _cell_offset(cell):
 def _prob_row(prob_board, row, col):
     """
     Gets a given position **row** and **col** and fills all
-    other row positions with "." (probability zero).
+    other row positions with "." (No probability).
 
     """
     line = [i for i in range(0, 9)]
@@ -571,7 +587,7 @@ def _prob_row(prob_board, row, col):
 def _prob_col(prob_board, row, col):
     """
     Gets a given position **row** and **col** and fills all
-    other col positions with "." (probability zero).
+    other col positions with "." (No probability).
 
     """
     line = [i for i in range(0, 9)]
@@ -587,12 +603,10 @@ def _prob_col(prob_board, row, col):
 def _prob_cell(prob_board, row, col):
     """
     Gets a given position **row** and **col** and fills all
-    other cell positions with "." (probability zero).
+    other cell positions with "." (No probability).
 
     """
-    cell = find_cell(row, col)
-
-    i_offset, j_offset = _cell_offset(cell)
+    i_offset, j_offset = _cell_offset(find_cell(row, col))
 
     for i in range(i_offset, i_offset+3):
         for j in range(j_offset, j_offset+3):
@@ -609,20 +623,32 @@ def _all_line_possibilities():
     Creates a list with 9 position and all positions with all 9
     numbers possibilities.
 
+    Used for col and row possibilities.
+    (IF wish to use for cells, need to change for a matrix).
+
     """
     line = [[i for i in range(1, 10)] for j in range(0, 9)]
 
 
     return line
 
+
 def check_solution(board):
     """
-    Check if solution is ok.
+    Check the solution.
+
+    Sequence of check:
+    1- Number of filled positions = 81,
+    2- Rows = No repeated number in the row,
+    3- Cols = No repeated number in the column.
+
+    If solution has a problem, will print a log with the
+    errors found
 
     """
     # Check for empty values
     counter = count_empty(board)
-    log = ""
+    log = " **** Error: "
     if(counter > 0):
         log = log + f"c_{counter}"
 
@@ -641,8 +667,8 @@ def check_solution(board):
             log = log + "col_{j}"
 
 
-    if(log != ""):
-        print(log)
+    if(log != " **** Error: "):
+        print(log + " ****")
 
 
     return None
@@ -654,22 +680,22 @@ board_list = get_all_boards(extension=".txt")
 #board_list = ["sudoku_hard_01.txt"]
 
 for b in board_list:
-    print(f" ****  Solving '{b}'  **** \n")    
+    print(f" ****  Solving '{b}'  ****")    
     board = read_board(b)
     print_board(board, title="Board - Initial")
 
-    turn = 0
-    
+    turn = 0   
     while(True):
         turn = turn + 1
         
         board, sol_excl = solution_by_exclusion(board, verbose=True)
-        board, sol_prob = solution_by_probabilities(board, priority_sequence(board), verbose=True)
+        board, sol_cell = solution_by_prob_cell(board, verbose=True)
         board, sol_line = solution_by_lines(board, verbose=True)
 
-        solutions = sol_excl + sol_prob + sol_line
+        solutions = sol_excl + sol_cell + sol_line
         
         if(solutions > 0):
+            print(f" > Solutions found: {solutions}")
             print_board(board, title=f"Board - Turn {turn}")
 
         elif(count_fill(board) == 81):
@@ -681,5 +707,7 @@ for b in board_list:
             break
 
 
-    print("\n  * * * * * * * * * * \n")
+    print(" " + 70 * "-" + "\n")
 
+
+# end
