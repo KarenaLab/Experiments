@@ -675,9 +675,10 @@ def check_solution(board):
     
 
 # Program --------------------------------------------------------------
-board_list = get_all_boards(extension=".txt")
+#board_list = get_all_boards(extension=".txt")
 #board_list = ["sudoku_medium_01.txt"]
 #board_list = ["sudoku_hard_01.txt"]
+board_list = ["sudoku_veryhard_01.txt"]
 
 for b in board_list:
     print(f" ****  Solving '{b}'  ****")    
