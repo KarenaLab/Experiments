@@ -91,14 +91,63 @@ def gaussian_curve(loc, scale, size=1000, slide=4):
     return x, y
 
 
+def ttest_1samp_scratch(sample, popmean):
+    """
+    Calculates the p_value from a T-Test One sample.
+    
+    """
+    # Data Preparation
+    sample = np.array(sample)
+
+    # T-Statistic
+    t = (np.mean(sample) - popmean) / (np.std(sample) / np.sqrt(np.size(sample)-1))
+
+    # p_value (left side area)
+    p_value = st.t.sf(x=abs(t), df=(np.size(sample) - 1))
+
+
+    return p_value
+
+
+def d_percentage(start, end):
+    """
+    Returns the differential percentage between **start** and **end**.
+
+                end - start
+    Equation = -------------
+                  start
+    
+    """
+    diff_pct =((end - start) / start)
+
+
+    return diff_pct
+
+    
+
 
 # Setup/Config
 
 
 
 # Program --------------------------------------------------------------
-sample = better_sample(loc=5000, scale=70, size=10)
 
+# Sample data
+sample_mean = 12.9
+sample_stddev = 0.4
+sample_size = 32
+
+pop_mean = 13
+
+diff_list = list()
+for i in range(0, 1000):
+    pit_stop = better_sample(loc=sample_mean, scale=sample_stddev, size=sample_size, error=0.01)
+
+    ttest_calc = ttest_1samp_scratch(sample=pit_stop, popmean=pop_mean)
+    ttest_scipy = st.ttest_1samp(pit_stop, popmean=pop_mean, alternative="less").pvalue
+    d_diff = d_percentage(ttest_scipy, ttest_calc)
+
+    diff_list.append(d_diff)
 
 
 # end
