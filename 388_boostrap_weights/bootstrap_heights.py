@@ -1,4 +1,4 @@
-# Name [P388]
+# Name [P388] Bootstrap with plympic weights of teams
 
 # Libraries
 import os
