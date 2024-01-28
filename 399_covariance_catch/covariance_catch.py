@@ -1,6 +1,6 @@
-# Name [Pxxx]
-# (optional) Short description of the program/module.
-
+# Covariance Catch [P399]
+# Short experiment to show the difference that covariance has and its
+# dataset.
 
 # Libraries
 import os
@@ -23,7 +23,7 @@ sys.path.append(r"c:\python_modules")
 
 
 # Functions
-def dataset1():
+def load_dataset1():
     """
     Returns x and y for a given dataset.
 
@@ -34,7 +34,7 @@ def dataset1():
     return x, y
 
 
-def dataset1():
+def load_dataset2():
     """
     Returns x and y for a given dataset.
 
@@ -45,12 +45,16 @@ def dataset1():
     return x, y
 
 
-def linreg_deg1(x, y):
+def linreg_deg1(x, y, decimals=6):
     """
     Estimates a Linear Regression with degree one for a given **x** and
     **y**.
 
     """
+    b, a = np.polyfit(x, y, deg=1)      # Equation = a + b*x
+    y_hat = np.round([a + b * i for i in x], decimals=decimals)
+
+    return y_hat
 
 
 def regr_metrics(y_true, y_pred, decimals=6):
@@ -59,7 +63,7 @@ def regr_metrics(y_true, y_pred, decimals=6):
     Returns a tuple with: MAE, RMSE, and Pearson R.
 
     """
-    results = namedtuple("metrics", ["MAE", "RMSE", "Pearson"])
+    results = namedtuple("metrics", ["mae", "rmse", "pearson"])
 
     mae = np.round(mean_absolute_error(y_true, y_pred), decimals=decimals)
     rmse = np.round(mean_squared_error(y_true, y_pred, squared=True), decimals=decimals)
@@ -79,7 +83,7 @@ def var_pct(start, end):
                            end
 
     """
-    calc = ((start - end) / end) * 100
+    calc = ((end - start) / start) * 100
 
     return calc
 
@@ -87,8 +91,25 @@ def var_pct(start, end):
 
 # Program --------------------------------------------------------------
 
+# Load datasets
+x1, y1 = load_dataset1()
+x2, y2 = load_dataset2()
 
+# Fit Linear Regression (deg=1) and its metrics (MAE, RMSE, Pearson)
+y1_pred = linreg_deg1(x1, y1)
+y2_pred = linreg_deg1(x2, y2)
+
+results1 = regr_metrics(y1, y1_pred)
+results2 = regr_metrics(y2, y2_pred)
+
+# Covariance
+cov1 = np.cov(x1, y1)[1,0]
+cov2 = np.cov(x2, y2)[1,0]
+
+
+# Variation of differences
+print(f" >    Variation of differences for Pearson: {var_pct(results1.pearson, results2.pearson):+.4f}")
+print(f" > Variation of differences for Covariance: {var_pct(cov1, cov2):+.4f}")
 
 
 # end
-
