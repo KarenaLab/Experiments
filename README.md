@@ -1,4 +1,5 @@
-#### Experiments
+### Experiments
+-----
 
 Experiments sometimes has good results, sometimes not so good; but all experiments at the end increases your level.
 This is the reason of this area, it is simple.
@@ -7,7 +8,8 @@ Some rules for this area:
 * A **summary** of the problem or issue that the experiment wish to explore. This summary could have a **description** or **motivation**,
 * A **short guide**, sometimes is not possible, but a plan for the next trip is always welcome,
 * A **delivery**, to set up what partners will exchange or what the following part need is always important. Most of all experiments are self-contained and a designed delivery is not mandatory,
-* And **results** (this is my favorite part). *In the face of ambiguity, refuse the temptation to guess*. It is where an experiment of 15 seconds turns into chapters and chapters, pages and pages of development, creates another possibilities and experiments and, at the end, give me a great joy of increasing my knowledge and, if possible, help another ones.
+* And **results** (this is my favorite part). *In the face of ambiguity, refuse the temptation to guess*. It is where an experiment of 15 seconds turns into chapters and chapters, pages and pages of development, creates another possibilities and experiments and, at the end, give me a great joy of increasing my knowledge and, if possible, help another ones,
+* The `readme.md` must reflects the `analysis.ipnb`.
 
 More rules:
 * Follow the standard for folder name: `[project number]_project_name`.
