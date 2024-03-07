@@ -12,7 +12,7 @@ The LLN is important because it guarantees stable long-term results for the aver
 (( text here ))
 
 
-# Statistics
+#### Statistics
 * Date: Mar 06th, 2024
 * Version: 02
 * Observation: Looking for that scripts get me a big smile, this was the first codes that I did when was taking the first classes of Data Scientist. Of course I refactored code, but the first commits are in the log :)
