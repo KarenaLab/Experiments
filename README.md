@@ -9,7 +9,7 @@ Some rules for this area:
 * A **short guide**, sometimes is not possible, but a plan for the next trip is always welcome,
 * A **delivery**, to set up what partners will exchange or what the following part need is always important. Most of all experiments are self-contained and a designed delivery is not mandatory,
 * And **results** (this is my favorite part). *In the face of ambiguity, refuse the temptation to guess*. It is where an experiment of 15 seconds turns into chapters and chapters, pages and pages of development, creates another possibilities and experiments and, at the end, give me a great joy of increasing my knowledge and, if possible, help another ones,
-* The `readme.md` must reflects the `analysis.ipnb`.
+* The `readme.md` must reflects the `p[number]_analysis.ipynb`. 
 
 More rules:
 * Follow the standard for folder name: `[project number]_project_name`.
@@ -20,3 +20,4 @@ More rules:
 * Talking about explicit. *Explicit is better than implicit, simple is better than complex*,
 * Give credits, you do not live alone in this world and,
 * *Special cases aren't special enough to break the rules*.
+
