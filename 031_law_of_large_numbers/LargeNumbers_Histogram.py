@@ -1,22 +1,23 @@
 
 # Versions --------------------------------------------------------------
 
-# 01 - 17th Jan 2021 - Starter
+# 01 - Jan 17th, 2021 - Starter
+# 02 - Mar 06th, 2024 - Refactoring
+# 
 
 
 
 # Libraries 
 
 import numpy as np
+
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
 
 
 # MAIN Program ----------------------------------------------------------
-print("")
 print(" *** LLN - Law of Large Numbers (Four Lines) ***")
-print("")
 
 Round = 100
 Bins = 11
