@@ -19,5 +19,6 @@ More rules:
 * Store all your results in folder `report` and it is very important to explicit it. (Sometimes a Powerpoint is better than a notebook).
 * Talking about explicit. *Explicit is better than implicit, simple is better than complex*,
 * Give credits, you do not live alone in this world and,
-* *Special cases aren't special enough to break the rules*.
+* *Special cases aren't special enough to break the rules* and,
+* Experiments are never fisnished, there is always a way to make it better, different or explore some hidden place.
 
