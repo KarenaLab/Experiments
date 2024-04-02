@@ -18,10 +18,7 @@ The LLN is important because it guarantees stable long-term results for the aver
 * 
 
 -----
-#### Statistics
-* Date: Mar 11th, 2024
-* Version: 02
-* 
+
 
 
 
