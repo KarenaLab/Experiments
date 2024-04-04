@@ -1,23 +1,8 @@
-### [Pxxx] - Project Title
+### [P251] - Prime Numbers
 
 #### Motivation (or description)
-(( motivation ))
-
-#### Short guide
-* start,
-* middle and,
-* end
-
-#### Delivery
-(**optional**) Non tellus orci ac auctor augue mauris augue neque gravida. Pulvinar neque laoreet suspendisse interdum consectetur. Lectus proin nibh nisl condimentum. 
+It is a fun project, just to calculate prime numbers, but we will take a walk around in the theme and some fun facts about the theme.
 
 #### Results
 (( spend your time here ))
-
-#### Statistics
-* Date:
-* Version: 01
-* Observations:
-
-
 
