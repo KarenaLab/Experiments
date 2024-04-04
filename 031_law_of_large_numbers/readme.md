@@ -17,8 +17,6 @@ The LLN is important because it guarantees stable long-term results for the aver
 * https://en.wikipedia.org/wiki/Probability_theory
 * 
 
------
-
 
 
 
