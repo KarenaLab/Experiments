@@ -1,23 +1,12 @@
-### [Pxxx] - Project Title
+### P204 - Anscombe's quartet
 
 #### Motivation (or description)
-(( motivation ))
+To test the **Anscombe's Quartet** and have got a function with all four tables ready to be uploaded.
 
-#### Short guide
-* start,
-* middle and,
-* end
 
 #### Delivery
-(**optional**) Non tellus orci ac auctor augue mauris augue neque gravida. Pulvinar neque laoreet suspendisse interdum consectetur. Lectus proin nibh nisl condimentum. 
+
 
 #### Results
 (( spend your time here ))
-
-#### Statistics
-* Date:
-* Version: 01
-* Observations:
-
-
 
