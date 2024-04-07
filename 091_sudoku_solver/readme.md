@@ -1,7 +1,7 @@
-### [Pxxx] - Project Title
+### P091 - Sudoku - Auto solver
 
 #### Motivation (or description)
-(( motivation ))
+Create a solver for Sudoku WITHOUT using recursion, but probabilities. Also important to say that of of the premises is not possible to do tries.
 
 #### Short guide
 * start,
@@ -9,15 +9,10 @@
 * end
 
 #### Delivery
-(**optional**) Non tellus orci ac auctor augue mauris augue neque gravida. Pulvinar neque laoreet suspendisse interdum consectetur. Lectus proin nibh nisl condimentum. 
+To receive the sudoku matrix as a `.txt` file and run a script, giving back a screen (and optional) `.txt` output. 
 
 #### Results
-(( spend your time here ))
 
-#### Statistics
-* Date:
-* Version: 01
-* Observations:
 
 
 
