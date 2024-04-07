@@ -1,7 +1,7 @@
-### [Pxxx] - Project Title
+### P335 - p-value
 
 #### Motivation (or description)
-(( motivation ))
+Have got a visual tool to visualize the **p-value**
 
 #### Short guide
 * start,
@@ -13,11 +13,4 @@
 
 #### Results
 (( spend your time here ))
-
-#### Statistics
-* Date:
-* Version: 01
-* Observations:
-
-
 
