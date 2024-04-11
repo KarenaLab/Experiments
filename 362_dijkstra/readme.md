@@ -1,4 +1,4 @@
-### [Pxxx] - Project Title
+### P362 - Dijkstra
 
 #### Motivation (or description)
 (( motivation ))
