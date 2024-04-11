@@ -1,4 +1,4 @@
-### [Pxxx] - Project Title
+### P388 - Bootstrap - Experiment with HeightWeight dataset
 
 #### Motivation (or description)
 (( motivation ))
