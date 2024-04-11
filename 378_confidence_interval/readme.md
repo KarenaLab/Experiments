@@ -1,4 +1,4 @@
-### [Pxxx] - Project Title
+### P378 - Test A/B (Frequentist)
 
 #### Motivation (or description)
 (( motivation ))
