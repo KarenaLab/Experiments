@@ -1,7 +1,7 @@
-### [Pxxx] - Project Title
+### P399 - Covariance catch
 
 #### Motivation (or description)
-(( motivation ))
+To test and check the **Covariance** values and changes in some projects and chek if it is, or how it is, useful for model tunning.
 
 #### Short guide
 * start,
