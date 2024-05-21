@@ -12,7 +12,7 @@ import pandas as pd
 import scipy.stats as st
 
 from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import root_mean_squared_error
 from sklearn.metrics import r2_score
 
 import matplotlib.pyplot as plt
@@ -66,7 +66,7 @@ def regr_metrics(y_true, y_pred, decimals=6):
     results = namedtuple("metrics", ["mae", "rmse", "pearson"])
 
     mae = np.round(mean_absolute_error(y_true, y_pred), decimals=decimals)
-    rmse = np.round(mean_squared_error(y_true, y_pred, squared=True), decimals=decimals)
+    rmse = np.round(root_mean_squared_error(y_true, y_pred), decimals=decimals)
     pearson = np.round(st.pearsonr(y_true, y_pred).statistic, decimals=decimals)
 
     metrics = results(mae, rmse, pearson)
@@ -106,10 +106,8 @@ results2 = regr_metrics(y2, y2_pred)
 cov1 = np.cov(x1, y1)[1,0]
 cov2 = np.cov(x2, y2)[1,0]
 
-
 # Variation of differences
 print(f" >    Variation of differences for Pearson: {var_pct(results1.pearson, results2.pearson):+.4f}")
 print(f" > Variation of differences for Covariance: {var_pct(cov1, cov2):+.4f}")
-
 
 # end
