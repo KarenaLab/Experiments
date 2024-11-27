@@ -9,6 +9,7 @@
 # Insights, improvements and bugfix
 # Add a debug move (more detailed than verbose)
 # Change the initial matrix 0 for "." (need to change all algorithm seq)
+# Change input format for sys.input().
 #
 
 
