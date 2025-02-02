@@ -3,6 +3,7 @@
 
 # Libraries
 import os
+import sys
 
 import numpy as np
 import pandas as pd
@@ -12,13 +13,23 @@ import matplotlib.pyplot as plt
 
 
 # Personal modules
+sys.path.append("./src")
 from bootstrap_mean import bootstrap_with_mean
+
+
+# Setup/Config
+path_main = os.getcwd()
+path_report = os.path.join(path_main, "report")
 
 
 # Functions
 def load_gaussian(mean=0, stddev=1, size=1000, seed=None):
     """
+    Creates a Gaussian (Normal) sample distribution with a given
+    **mean (loc)** and **standard deviation (scale)** with a sample
+    **size**.
 
+    Optional: Inform **seed** for repeatability.
 
     """
     # Seed
@@ -34,7 +45,10 @@ def load_gaussian(mean=0, stddev=1, size=1000, seed=None):
 
 def data_split(data, size=25, seed=None):
     """
+    Splits, or removes from **data** a given percentage informed with
+    **size**.
 
+    Optional: Inform **seed** for repeatability.
 
     """
     # Data preparation
@@ -50,10 +64,6 @@ def data_split(data, size=25, seed=None):
     return sample
     
     
-
-# Setup/Config
-
-
 
 # Program --------------------------------------------------------------
 data = load_gaussian(mean=5, stddev=1, size=2000, seed=314)
