@@ -64,7 +64,6 @@ def data_split(data, size=25, seed=None):
     return sample
     
     
-
 # Program --------------------------------------------------------------
 data = load_gaussian(mean=5, stddev=1, size=2000, seed=314)
 pick = data_split(data, size=25)
@@ -72,5 +71,5 @@ pick = data_split(data, size=25)
 bootstrap = bootstrap_with_mean(pick, size=10, repeat=200)
 print(bootstrap)
 
-
 # end
+
