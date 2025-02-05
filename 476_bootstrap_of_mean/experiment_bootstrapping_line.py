@@ -16,7 +16,6 @@ import matplotlib.cm as cm
 # Personal modules
 sys.path.append("./src")
 from bootstrap_mean import bootstrap_with_mean
-from plot_heatmap import plot_heatmap
 
 
 # Setup/Config
@@ -64,55 +63,23 @@ def data_split(data, size=25, seed=None):
 
     return sample
 
-
-def apply_minmax(array):
-    # Information
-    x_min = np.min(array)
-    x_max = np.max(array)
-
-    transformed = list()
-    for i in range(0, array.shape[0]):
-        line = list()
-        for j in range(0, array.shape[1]):
-            value = (array[i][j] - x_min) / (x_max - x_min)
-            line.append(value)
-
-        transformed.append(line)
-
-    transformed = np.array(transformed)
-
-    return transformed
-
   
 # Program --------------------------------------------------------------
 data = load_gaussian(mean=50, stddev=5, size=2000, seed=314)
 
-size_space = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
-repeat_space = [10, 20, 50, 100, 200, 500, 1000]
+repeat_space = [10, 20, 30, 40, 50,
+                60, 70, 80, 90, 100,
+                100, 200, 300, 400, 500,
+                600, 700, 800, 900, 1000]
 
 sample = data_split(data, size=np.max(repeat_space))
 
-x, y = np.meshgrid(size_space, repeat_space)
-z_mean, z_ci = list(), list()
+df = pd.DataFrame(data=[])
 for repeat in repeat_space:
-    line_mean, line_ci = list(), list()
-    for size in size_space:
-        bs = bootstrap_with_mean(sample, size=size, repeat=repeat)
-        mean = bs["bootstrap_mean"]
-        ci_range = bs["ci_upper"] - bs["ci_lower"]
-        line_mean.append(mean)
-        line_ci.append(ci_range)
+    bs = bootstrap_with_mean(sample, size=50, repeat=repeat)
 
-    z_mean.append(line_mean)
-    z_ci.append(line_ci)
-
-
-
-
-
-
-
-
-
-
+    df.loc[repeat, "mean"] = bs["bootstrap_mean"]
+    df.loc[repeat, "ci_lower"] = bs["ci_lower"]
+    df.loc[repeat, "ci_upper"] = bs["ci_upper"]
+    df.loc[repeat, "ci_range"] = bs["ci_upper"] - bs["ci_lower"]
 
