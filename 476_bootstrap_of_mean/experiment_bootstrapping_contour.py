@@ -86,49 +86,28 @@ def apply_minmax(array):
 # Program --------------------------------------------------------------
 data = load_gaussian(mean=50, stddev=5, size=2000, seed=314)
 
-size_space = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
-repeat_space = [10, 20, 50, 100, 200, 500, 1000]
+size_space = np.linspace(start=1, stop=10, num=10, dtype=int)
+repeat_space = np.linspace(start=5, stop=50, num=10, dtype=int)
 
 sample = data_split(data, size=np.max(repeat_space))
-
-x, y = np.meshgrid(size_space, repeat_space)
-z_mean, z_ci = list(), list()
-for repeat in repeat_space:
-    line_mean, line_ci = list(), list()
-    for size in size_space:
-        bs = bootstrap_with_mean(sample, size=size, repeat=repeat)
-        mean = bs["bootstrap_mean"]
-        ci_range = bs["ci_upper"] - bs["ci_lower"]
-        line_mean.append(mean)
-        line_ci.append(ci_range)
-
-    z_mean.append(line_mean)
-    z_ci.append(line_ci)
-
-
-"""
-sample = data_split(data, size=np.max(repeat_list))
 
 mean_map = pd.DataFrame(data=[])
 range_map = pd.DataFrame(data=[])
 
-for size in size_list:   
-    for repeat in repeat_list:
+for size in size_space:   
+    for repeat in repeat_space:
         bs = bootstrap_with_mean(sample, size=size, repeat=repeat)
 
         mean_map.loc[size, repeat] = bs["bootstrap_mean"]
         range_map.loc[size, repeat] = bs["ci_upper"] - bs["ci_lower"]
-        
-cs1 = plt.contour(x, y, z2, linewidths=0.5, colors='k')
-cs2 = plt.contour(x, y, z2, cmap="RdBu_r")
+
+x, y = np.meshgrid(range_map.index, range_map.columns)
+z = np.array(range_map).T
+
+
+cs1 = plt.contour(x, y, z, linewidths=0.5, colors='k')
+cs2 = plt.contour(x, y, z, cmap="RdBu_r")
+plt.clabel(cs1, fontsize=7)
+
 plt.show()
-
-"""
-plt.imshow(z_ci, cmap='Blues', interpolation='nearest')
-plt.show()
-
-
-
-
-
 
