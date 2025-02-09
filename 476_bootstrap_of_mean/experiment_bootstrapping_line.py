@@ -67,16 +67,14 @@ def data_split(data, size=25, seed=None):
 # Program --------------------------------------------------------------
 data = load_gaussian(mean=50, stddev=5, size=2000, seed=314)
 
-repeat_space = [10, 20, 30, 40, 50,
-                60, 70, 80, 90, 100,
-                100, 200, 300, 400, 500,
-                600, 700, 800, 900, 1000, 1100]
+repeat_space = np.linspace(start=10, stop=90, num=9, dtype=int)
+repeat_space = np.append(repeat_space, np.linspace(start=100, stop=1000, num=10, dtype=int))
 
 sample = data_split(data, size=np.max(repeat_space))
 
 df = pd.DataFrame(data=[])
 for repeat in repeat_space:
-    bs = bootstrap_with_mean(sample, size=50, repeat=repeat)
+    bs = bootstrap_with_mean(sample, size=50, repeat=int(repeat))
 
     df.loc[repeat, "mean"] = bs["bootstrap_mean"]
     df.loc[repeat, "ci_lower"] = bs["ci_lower"]
