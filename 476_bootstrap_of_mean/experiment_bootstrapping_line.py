@@ -70,7 +70,7 @@ data = load_gaussian(mean=50, stddev=5, size=2000, seed=314)
 repeat_space = [10, 20, 30, 40, 50,
                 60, 70, 80, 90, 100,
                 100, 200, 300, 400, 500,
-                600, 700, 800, 900, 1000]
+                600, 700, 800, 900, 1000, 1100]
 
 sample = data_split(data, size=np.max(repeat_space))
 
