@@ -74,7 +74,7 @@ sample = data_split(data, size=np.max(repeat_space))
 
 df = pd.DataFrame(data=[])
 for repeat in repeat_space:
-    bs = bootstrap_with_mean(sample, size=50, repeat=int(repeat))
+    bs = bootstrap_with_mean(sample, size=50, repeat=repeat)
 
     df.loc[repeat, "mean"] = bs["bootstrap_mean"]
     df.loc[repeat, "ci_lower"] = bs["ci_lower"]
