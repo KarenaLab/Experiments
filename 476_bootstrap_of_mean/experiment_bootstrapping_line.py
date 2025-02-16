@@ -81,3 +81,4 @@ for repeat in repeat_space:
     df.loc[repeat, "ci_upper"] = bs["ci_upper"]
     df.loc[repeat, "ci_range"] = bs["ci_upper"] - bs["ci_lower"]
 
+# end
