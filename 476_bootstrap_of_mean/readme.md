@@ -20,11 +20,14 @@ Este esperimento segue o algorítmo sugerido pelos autores e é descrito abaixo:
 
 Os valores *n* (tamanho da sub-amostra) e *r* (número de iterações ou repetições) é ajustado de forma arbitrária mas quanto maiores, mais precisa será a estimativa do intervalo de confiança. 
 
-Importante resaltar :
+Importante resaltar:
 * No passo 1 a amostragem é com reposição, está na reposição a força do bootstraping,
 * Observe que tão importante quanto saber a média do experimento, é saber o Intervalo de Confiança. Os experimentos a seguir irão trabalhar com este conceito e verificar o seu comportamento.
 
 (sobre o intervalo de confiança)
+
+
+#### Descritivo 
 
 
 #### Resultados
