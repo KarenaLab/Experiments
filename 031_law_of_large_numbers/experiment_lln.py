@@ -1,6 +1,4 @@
-# Name [P031]
-# Experiment for the LLN (Law of Large Numbers)
-
+# [P031] Experiment for Law of Large Numbers (LLN)
 
 # Libraries
 import os
@@ -28,4 +26,3 @@ sys.path.append(r"c:\python_modules")
 
 
 # end
-
