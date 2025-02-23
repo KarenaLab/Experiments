@@ -10,7 +10,8 @@ In [probability theory](https://en.wikipedia.org/wiki/Probability_theory), the  
 
 The LLN is important because it guarantees stable long-term results for the averages of some random events. For example, while a casino may lose money in a single spin of the roulette wheel, its earnings will tend towards a predictable percentage over a large number of spins. Any winning streak by a player will eventually be overcome by the parameters of the game. Importantly, the law applies (as the name indicates) only when a *large number* of observations are considered. There is no principle that a small number of observations will coincide with the expected value or that a streak of one value will immediately be "balanced" by the others (see the  [gambler's fallacy](https://en.wikipedia.org/wiki/Gambler%27s_fallacy)). (Extract from [Wikipedia](https://en.wikipedia.org/wiki/Law_of_large_numbers) on Dec 05th, 2022).
 
-#### 
+#### Development
+
 
 
 #### Sources
